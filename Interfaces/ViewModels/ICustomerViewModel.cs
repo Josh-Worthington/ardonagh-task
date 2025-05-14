@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace CustomerDetails.Interfaces.ViewModels;
 
@@ -33,4 +34,9 @@ public interface ICustomerViewModel : IDataErrorInfo
     ///     Gets or sets if the customer details are valid.
     /// </summary>
     bool IsValid { get; }
+
+    /// <summary>
+    ///     Keeps track of the validation errors.
+    /// </summary>
+    Dictionary<string, string> Errors { get; }
 }

@@ -32,8 +32,6 @@ public class ModifyCustomerViewModel : IModifyCustomerViewModel
     /// <inheritdoc/>
     public IRelayCommand CancelCommand { get; init; }
 
-    public bool IsValid => Customer.IsValid;
-
     private void Close(bool cancel)
     {
         if (cancel)

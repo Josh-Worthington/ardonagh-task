@@ -44,6 +44,7 @@ public class CustomerServiceSingleton : ICustomerService
     /// <inheritdoc/>
     public void DeleteCustomer(int id) => Customers.Remove(GetCustomer(id));
 
+    /// <inheritdoc/>
     public ICustomer GetCustomer(int id) => Customers.SingleOrDefault(c => c.Id == id);
 
     private ICustomer CreateCustomer(ICustomerViewModel customerViewModel)

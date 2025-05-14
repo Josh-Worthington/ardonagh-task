@@ -1,4 +1,6 @@
-﻿using CustomerDetails.Interfaces.Services;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CustomerDetails.Interfaces.Services;
 using CustomerDetails.Interfaces.ViewModels;
 
 namespace CustomerDetails.ViewModels;
@@ -24,29 +26,38 @@ public class CustomerViewModel(ICustomerValidationService customerValidationServ
     public string Height { get; set; } = string.Empty;
 
     /// <inheritdoc/>
-    public bool IsValid => Error.Length == 0;
+    public bool IsValid => !Errors.Values.Any(s => s.Length > 0);
 
     /// <inheritdoc/>
     public string this[string propertyName]
     {
         get
         {
-            switch (propertyName)
+            var error = propertyName switch
             {
-                case nameof(Name):
-                    return customerValidationService.ValidateName(Name);
-                case nameof(Age):
-                    return customerValidationService.ValidateAge(Age);
-                case nameof(Postcode):
-                    return customerValidationService.ValidatePostcode(Postcode);
-                case nameof(Height):
-                    return customerValidationService.ValidateHeight(Height);
-                default:
-                    return string.Empty;
-            }
+                nameof(Name) => customerValidationService.ValidateName(Name),
+                nameof(Age) => customerValidationService.ValidateAge(Age),
+                nameof(Postcode) => customerValidationService.ValidatePostcode(Postcode),
+                nameof(Height) => customerValidationService.ValidateHeight(Height),
+                _ => string.Empty,
+            };
+            Errors[propertyName] = error;
+            OnPropertyChanged(nameof(IsValid));
+            return error;
         }
     }
 
     /// <inheritdoc/>
     public string Error => string.Empty;
+
+    /// <summary>
+    ///     Keeps track of the current validation errors.
+    /// </summary>
+    public Dictionary<string, string> Errors { get; } = new Dictionary<string, string>
+    {
+        { nameof(Name), string.Empty },
+        { nameof(Age), string.Empty },
+        { nameof(Postcode), string.Empty },
+        { nameof(Height), string.Empty }
+    };
 }

@@ -49,7 +49,7 @@
                                             DisplayMemberBinding="{Binding Age}" />
                             <GridViewColumn Header="Postcode"
                                             DisplayMemberBinding="{Binding Postcode}" />
-                            <GridViewColumn Header="Height"
+                            <GridViewColumn Header="Height (m)"
                                             DisplayMemberBinding="{Binding Height}" />
                         </GridView>
                     </ListView.View>

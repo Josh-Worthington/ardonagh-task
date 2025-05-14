@@ -18,7 +18,7 @@ public class CustomerValidationService : ICustomerValidationService
         { Validation.InvalidCharactersAlphanumeric, "Must only contain alphanumeric characters." },
         { Validation.InvalidCharactersLetters, "Must only contain letters." },
         { Validation.InvalidCharactersNumber, "Must only contain digits." },
-        { Validation.InvalidCharactersDecimal, "Must only contain digits and two decimal places." }
+        { Validation.InvalidCharactersDecimal, "Must only contain digits with at most two decimal places." }
     };
 
     /// <inheritdoc/>
@@ -72,7 +72,7 @@ public class CustomerValidationService : ICustomerValidationService
     /// <inheritdoc/>
     public string ValidateHeight(string height)
     {
-        var regex = new Regex("^(\\d+)+.?(\\d)*$");
+        var regex = new Regex("^(\\d+)+.?(\\d)?(\\d)?$");
         if (!regex.IsMatch(height))
         {
             return ValidationErrorMessages[Validation.InvalidCharactersDecimal];

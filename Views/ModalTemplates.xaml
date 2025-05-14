@@ -42,6 +42,7 @@
                         Command="{Binding CancelCommand}" />
 
                 <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Name="OkButton"
                         Margin="8"
                         HorizontalAlignment="Right"
                         Content="OK"
