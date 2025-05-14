@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using CustomerDetails.Entities;
 using CustomerDetails.Interfaces.Entities;
@@ -8,27 +9,29 @@ using CustomerDetails.Interfaces.ViewModels;
 namespace CustomerDetails.Services;
 
 /// <summary>
-///     An example class for DI.
+///     The customer service singleton.
 /// </summary>
 public class CustomerServiceSingleton : ICustomerService
 {
+    private readonly List<ICustomer> customers;
     /// <summary>
     ///     Default constructor.
     /// </summary>
     public CustomerServiceSingleton()
     {
-        Customers = new List<ICustomer>();
+        customers = [];
+        Customers = new ReadOnlyCollection<ICustomer>(customers);
     }
 
     /// <summary>
     ///     List of all the customers.
     /// </summary>
-    public List<ICustomer> Customers { get; init; }
+    public ReadOnlyCollection<ICustomer> Customers { get; init; }
 
     /// <inheritdoc/>
     public void AddCustomer(ICustomerViewModel newCustomer)
     {
-        Customers.Add(CreateCustomer(newCustomer));
+        customers.Add(CreateCustomer(newCustomer));
     }
 
     /// <inheritdoc/>
@@ -42,10 +45,10 @@ public class CustomerServiceSingleton : ICustomerService
     }
 
     /// <inheritdoc/>
-    public void DeleteCustomer(int id) => Customers.Remove(GetCustomer(id));
+    public void DeleteCustomer(int id) => customers.Remove(GetCustomer(id));
 
     /// <inheritdoc/>
-    public ICustomer GetCustomer(int id) => Customers.SingleOrDefault(c => c.Id == id);
+    public ICustomer GetCustomer(int id) => customers.SingleOrDefault(c => c.Id == id);
 
     private ICustomer CreateCustomer(ICustomerViewModel customerViewModel)
     {

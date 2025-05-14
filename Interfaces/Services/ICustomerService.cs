@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using CustomerDetails.Interfaces.Entities;
 using CustomerDetails.Interfaces.ViewModels;
 
 namespace CustomerDetails.Interfaces.Services;
 
 /// <summary>
-///     An example service interface for DI.
+///     The interface for customer service.
 /// </summary>
 public interface ICustomerService
 {
-    List<ICustomer> Customers { get; }
+    /// <summary>
+    ///     The collection of customers.
+    /// </summary>
+    ReadOnlyCollection<ICustomer> Customers { get; }
 
     /// <summary>
     ///     Adds a new customer to the list of customers.

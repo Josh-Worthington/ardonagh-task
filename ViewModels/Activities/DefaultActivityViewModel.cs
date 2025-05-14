@@ -48,7 +48,7 @@ public sealed class DefaultActivityViewModel : ViewModelBase, IDefaultActivityVi
     /// <inheritdoc/>
     public string ExampleProperty => "Example";
 
-    public ObservableCollection<ICustomer> Customers => new(customerService.Customers);
+    public ReadOnlyObservableCollection<ICustomer> Customers => new(new ObservableCollection<ICustomer>(customerService.Customers));
 
     private int _selectedCustomerId = -1;
     public int SelectedCustomerId
