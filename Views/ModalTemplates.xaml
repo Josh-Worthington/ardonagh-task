@@ -51,4 +51,30 @@
             </StackPanel>
         </StackPanel>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type modals:ConfirmationViewModel}">
+        <StackPanel MaxWidth="300"
+                    Margin="8">
+            <TextBlock Style="{DynamicResource MaterialDesignBodyMediumTextBlock}"
+                       Margin="8"
+                       Text="{Binding DescriptionText}"
+                       TextWrapping="Wrap"/>
+            
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Margin="8"
+                        HorizontalAlignment="Right"
+                        Content="Cancel"
+                        Command="{Binding CancelCommand}" />
+
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Name="OkButton"
+                        Margin="8"
+                        HorizontalAlignment="Right"
+                        Content="OK"
+                        Command="{Binding OkCommand}" />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>

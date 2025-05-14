@@ -7,9 +7,19 @@
             <StackPanel DockPanel.Dock="Bottom"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Background="Red"
+                        Foreground="White"
+                        Margin="8"
+                        Content="Delete"
+                        Command="{Binding DeleteCustomerCommand}"
+                        IsEnabled="{Binding CanEditCustomer}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right" />
+                
                 <Button Style="{DynamicResource MaterialDesignRaisedSecondaryButton}"
                         Margin="8"
-                        Content="Edit Customer"
+                        Content="Edit"
                         Command="{Binding EditCustomerCommand}"
                         IsEnabled="{Binding CanEditCustomer}"
                         VerticalAlignment="Center"
@@ -17,7 +27,7 @@
                 
                 <Button Style="{DynamicResource MaterialDesignRaisedButton}"
                         Margin="8"
-                        Content="Add Customer"
+                        Content="Add"
                         Command="{Binding AddCustomerCommand}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right" />

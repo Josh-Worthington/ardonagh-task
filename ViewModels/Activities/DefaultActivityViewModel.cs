@@ -31,6 +31,7 @@ public sealed class DefaultActivityViewModel : ViewModelBase, IDefaultActivityVi
 
         AddCustomerCommand = new RelayCommand(OpenAddCustomerModal);
         EditCustomerCommand = new RelayCommand(OpenEditCustomerModal);
+        DeleteCustomerCommand = new RelayCommand(DeleteCustomer);
     }
 
     /// <inheritdoc/>
@@ -38,6 +39,9 @@ public sealed class DefaultActivityViewModel : ViewModelBase, IDefaultActivityVi
 
     /// <inheritdoc/>
     public IRelayCommand EditCustomerCommand { get; init; }
+
+    /// <inheritdoc/>
+    public IRelayCommand DeleteCustomerCommand { get; init; }
 
     public bool CanEditCustomer => Customers.Count > 0 && SelectedCustomerId > -1;
 
@@ -57,7 +61,7 @@ public sealed class DefaultActivityViewModel : ViewModelBase, IDefaultActivityVi
         }
     }
 
-    public async void OpenAddCustomerModal()
+    private async void OpenAddCustomerModal()
     {
         var nextId = Customers.Count > 0 ? Customers.Max(c => c.Id) + 1 : 0;
 
@@ -74,7 +78,7 @@ public sealed class DefaultActivityViewModel : ViewModelBase, IDefaultActivityVi
         OnPropertyChanged(nameof(CanEditCustomer));
     }
 
-    public async void OpenEditCustomerModal()
+    private async void OpenEditCustomerModal()
     {
         var customer = customerService.GetCustomer(SelectedCustomerId);
         var editCustomerViewModel = new ModifyCustomerViewModel(customerValidationService, SelectedCustomerId);
@@ -89,6 +93,18 @@ public sealed class DefaultActivityViewModel : ViewModelBase, IDefaultActivityVi
         {
             customerService.EditCustomer(customerViewModel);
         }
+
+        OnPropertyChanged(nameof(Customers));
+    }
+
+    private async void DeleteCustomer()
+    {
+        var customer = customerService.GetCustomer(SelectedCustomerId);
+        var descriptionText = $"Are you sure you want to delete customer {customer.Name}?";
+
+        var areYouSureViewModel = new ConfirmationViewModel(() => customerService.DeleteCustomer(SelectedCustomerId), descriptionText);
+
+        await DialogHost.Show(areYouSureViewModel, "RootDialog");
 
         OnPropertyChanged(nameof(Customers));
     }
