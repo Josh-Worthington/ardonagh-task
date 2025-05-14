@@ -1,1 +1,1 @@
-# wpf-app-base
+# Customer Details Application

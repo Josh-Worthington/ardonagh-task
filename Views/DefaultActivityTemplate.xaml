@@ -34,7 +34,8 @@
                 
                 <ListView ItemsSource="{Binding Customers}"
                           SelectedValue="{Binding SelectedCustomerId}"
-                          SelectedValuePath="Id">
+                          SelectedValuePath="Id"
+                          HorizontalContentAlignment="Center">
                     <ListView.Resources>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalAlignment"
@@ -44,13 +45,17 @@
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
                             <GridViewColumn Header="Name"
-                                            DisplayMemberBinding="{Binding Name}" />
+                                            DisplayMemberBinding="{Binding Name}"
+                                            Width="160" />
                             <GridViewColumn Header="Age"
-                                            DisplayMemberBinding="{Binding Age}" />
+                                            DisplayMemberBinding="{Binding Age}"
+                                            Width="160" />
                             <GridViewColumn Header="Postcode"
-                                            DisplayMemberBinding="{Binding Postcode}" />
+                                            DisplayMemberBinding="{Binding Postcode}"
+                                            Width="160" />
                             <GridViewColumn Header="Height (m)"
-                                            DisplayMemberBinding="{Binding Height}" />
+                                            DisplayMemberBinding="{Binding Height}"
+                                            Width="160" />
                         </GridView>
                     </ListView.View>
                 </ListView>
