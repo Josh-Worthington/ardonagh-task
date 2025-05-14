@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:modals="clr-namespace:CustomerDetails.ViewModels.Modals"
+                    xmlns:System="clr-namespace:System;assembly=netstandard"
+                    xmlns:validation="clr-namespace:CustomerDetails.ValidationRules">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <DataTemplate DataType="{x:Type modals:ModifyCustomerViewModel}">
+        <DataTemplate.Resources>
+            <Style TargetType="{x:Type TextBox}"
+                   BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                <Setter Property="Margin"
+                        Value="12" />
+            </Style>
+        </DataTemplate.Resources>
+        <StackPanel Orientation="Vertical"
+                    Margin="8"
+                    Width="300">
+            <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                       Margin="8"
+                       Text="Customer Details" />
+            <TextBox materialDesign:HintAssist.Hint="Name"
+                     Text="{Binding Customer.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+            <TextBox materialDesign:HintAssist.Hint="Age"
+                     Text="{Binding Customer.Age, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+            <TextBox materialDesign:HintAssist.Hint="Postcode"
+                     Text="{Binding Customer.Postcode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+            <TextBox materialDesign:HintAssist.Hint="Height"
+                     Text="{Binding Customer.Height, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Margin="8"
+                        HorizontalAlignment="Right"
+                        Content="Cancel"
+                        Command="{Binding CancelCommand}" />
+
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Margin="8"
+                        HorizontalAlignment="Right"
+                        Content="OK"
+                        Command="{Binding OkCommand}"
+                        IsEnabled="{Binding Customer.IsValid}" />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>
